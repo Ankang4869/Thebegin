@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>欢迎使用查询系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="search">
+      <form>
+        <div id="province">省份名字<input type="text" class="province" /></div>
+        <div id="city">城市名字<input type="text" class="city" /></div>
+      </form>
+      <button type="button" id="btn01">查询</button>
+    </div>
+    <div id="list">
+      地区列表:
+      <br />
+      <ul></ul>
+    </div>
+
+    <script>
+      document.getElementById("btn01").onclick = () => {
+        const pname = document.getElementsByClassName("province")[0].value;
+        const cname = document.getElementsByClassName("city")[0].value;
+
+        // console.log(pname, cname);
+
+        axios({
+          url: "http://hmajax.itheima.net/api/area",
+          params: {
+            pname,
+            cname,
+          },
+        })
+          .then((result) => {
+            //   console.log(result.data.list);
+            const list = document.querySelector("#list ul");
+
+            // 直接作为文本插入
+            // list.innerHTML = result.data.list.join("<br>");
+
+            // 也可以转换为li标签
+            list.innerHTML = result.data.list
+              .map((item) => `<li>${item}</li>`)
+              .join("");
+          })
+          .catch((e) => {
+            console.log("出错了", e);
+          });
+      };
+    </script>
+  </body>
+</html>
