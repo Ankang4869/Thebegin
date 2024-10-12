@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>你好</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="province">哈哈</div>
+    <script>
+      axios({
+        url: "http://hmajax.itheima.net/api/province",
+      }).then((result) => {
+        // console.log(result.data);
+        const divprovince = document.getElementById("province");
+        // join函数 数组转字符串 同时添加连接符
+        const proStr = result.data.list.join("<br>");
+        console.log(proStr);
+        // const proStrhtml = proStr.map((item) => {
+        //   `<li>${item}</li>`;
+        // });
+        // console.log(proStrhtml);
+        divprovince.innerHTML = proStr;
+      });
+    </script>
+  </body>
+</html>
